@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>My List To Do</title>
+  </head>
+  <body>
+    <style media="screen">
+      * {
+        box-sizing: border-box;
+      }
+      body{
+        margin:0;
+        padding:0;
+        font-family: sans-serif;
+        background:#EAB543;
+      }
+      header {
+        padding: 20px 50px;
+        text-align: center;
+      }
+      input {
+        margin: 0;
+        border: none;
+        outline: none;
+        width: 80%;
+        padding: 10px;
+        float: center;
+        font-size: 16px;
+        background: #fff;
+        color: #000;
+      }
+      .btn {
+        padding: 10px;
+        width: 15%;
+        background: #000;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.2s;
+        margin: -10px;
+      }
+      .btn:hover {
+        background: #ff3838;
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+      ul li {
+        position: relative;
+        cursor: pointer;
+        padding: 10px 5px 10px 40px;
+        background:#eee;
+        font-size: 18px;
+        transition: 0.1s;
+      }
+      header:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      ul li:nth-child(odd) {
+        background: #f9f9f9;
+      }
+      ul li:hover {
+        background: #ddd;
+      }
+
+
+
+
+      ul li.checked {
+        text-decoration: line-through;
+        background: #4cd137;
+        color: #fff;
+      }
+      ul li.checked::before {
+        position: absolute;
+        content: '';
+        border: solid #fff;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+        top: 8px;
+        left: 18px;
+        height: 15px;
+        width: 6px;
+      }
+      .close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 10px 15px 10px 15px;
+      }
+      .close:hover {
+        background-color: red;
+        color: white;
+      }
+    </style>
+    <header>
+      <h1>My List To Do</h1>
+      <input type="text" id="listInput" placeholder="Title..." maxlength="100">
+      <input type="submit" onclick="newList()" class="btn" value="Add">
+    </header>
+    <main>
+      <ul id="myList">
+        <li>Cooking</li>
+        <li>Walking the dog</li>
+        <li>Taking a shower</li>
+        <li>Read a book</li>
+        <li>Exercises</li>
+      </ul>
+    </main>
+  </body>
+  <script type="text/javascript">
+  var closeList = document.getElementsByTagName("li");
+  var i;
+  for (i = 0; i < closeList.length; i++) {
+    var span = document.createElement("span");
+    var txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    closeList[i].appendChild(span);
+  }
+
+  var close = document.getElementsByClassName("close");
+  var i;
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var ul = this.parentElement;
+      ul.style.display = "none";
+    }
+  }
+
+  var list = document.querySelector('ul');
+  list.addEventListener('click', function(ev) {
+    if (ev.target.tagName === 'LI') {
+      ev.target.classList.toggle('checked');
+    }
+  }, false);
+
+    function newList() {
+      var li = document.createElement("li");
+      var inputValue = document.getElementById("listInput").value;
+      var t = document.createTextNode(inputValue);
+      li.appendChild(t);
+      if (inputValue === '') {
+        alert("You must enter a task!");
+      } else {
+        document.getElementById("myList").appendChild(li);
+      }
+      document.getElementById("listInput").value = "";
+
+      var span = document.createElement("span");
+      var txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.appendChild(txt);
+      li.appendChild(span);
+
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+          var ul = this.parentElement;
+          ul.style.display = "none";
+        }
+      }
+    }
+  </script>
+</html>
